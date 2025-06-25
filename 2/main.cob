@@ -18,17 +18,17 @@
        
        WORKING-STORAGE SECTION.
 
-       01 FILE-STATUS PIC xx.
+       01 FILE-STATUS PIC XX.
        01 WS-NAME PIC A(30).
        01 WS-SALARY PIC 9(6)V99.
 
        PROCEDURE DIVISION.
        OPEN EXTEND EMPLOYEE-FILE
-       IF FILE-STATUS = "00"
+       IF FILE-STATUS = "00" THEN
            DISPLAY "File opened."
        ELSE
            DISPLAY "Failed to open the file."
-           STOP RUN.
+           STOP RUN
        END-IF.
 
        DISPLAY "Enter Employee Name Please :"
@@ -41,12 +41,13 @@
        WRITE EMPLOYEE-RECORD
 
        
-       IF FILE-STATUS NOT = "00" AND FILE-STATUS NOT = "10"
+       IF FILE-STATUS NOT = "00" AND FILE-STATUS NOT = "10" THEN
            DISPLAY "ERROR WRITING TO FILE"
            DISPLAY "ERROR NO. : " , FILE-STATUS
            CLOSE EMPLOYEE-FILE
-           STOP RUN.
+           STOP RUN
        END-IF.
 
        CLOSE EMPLOYEE-FILE
        DISPLAY "NEW EMPLOYEE HAS BEEN ADDED TO FILE."
+       STOP RUN.
