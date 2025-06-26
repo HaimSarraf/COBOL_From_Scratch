@@ -50,14 +50,14 @@
 
            CLOSE EMPLOYEE-FILE
            DISPLAY "NEW EMPLOYEE HAS BEEN ADDED TO FILE."
-           STOP RUN.
+           
 
       *    read and verify the file
 
            DISPLAY "---- ALL FILE CONTENT ----"
            OPEN INPUT EMPLOYEE-FILE
            IF FILE-STATUS = "00" THEN
-               PERFORM READ-AND-DISPLAY UNTIL FILE-STATUS NOT = "0"
+               PERFORM READ-AND-DISPLAY UNTIL FILE-STATUS NOT = "00"
                CLOSE EMPLOYEE-FILE
            ELSE
                DISPLAY "ERROR READING FROM FILE"
