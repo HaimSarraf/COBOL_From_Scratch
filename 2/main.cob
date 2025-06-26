@@ -15,7 +15,7 @@
        01 EMPLOYEE-RECORD.
            05 EMPLOYEE-NAME PIC A(30).
            05 EMPLOYEE-SALARY PIC 9(6)V99.
-       
+
        WORKING-STORAGE SECTION.
 
        01 FILE-STATUS PIC XX.
@@ -40,7 +40,7 @@
            MOVE WS-SALARY TO EMPLOYEE-SALARY
            WRITE EMPLOYEE-RECORD
 
-       
+
            IF FILE-STATUS NOT = "00" AND FILE-STATUS NOT = "10" THEN
                DISPLAY "ERROR WRITING TO FILE"
                DISPLAY "ERROR NO. : " , FILE-STATUS
@@ -51,3 +51,25 @@
            CLOSE EMPLOYEE-FILE
            DISPLAY "NEW EMPLOYEE HAS BEEN ADDED TO FILE."
            STOP RUN.
+
+      *    read and verify the file
+
+           DISPLAY "---- ALL FILE CONTENT ----"
+           OPEN INPUT EMPLOYEE-FILE
+           IF FILE-STATUS = "00" THEN
+               PERFORM READ-AND-DISPLAY UNTIL FILE-STATUS NOT = "0"
+               CLOSE EMPLOYEE-FILE
+           ELSE
+               DISPLAY "ERROR READING FROM FILE"
+           END-IF.
+           STOP RUN.
+
+       READ-AND-DISPLAY.
+               READ EMPLOYEE-FILE INTO EMPLOYEE-RECORD
+                   AT END
+                       MOVE "10" TO FILE-STATUS
+                   NOT AT END
+                       DISPLAY "Employee Name : " EMPLOYEE-NAME
+                       DISPLAY "Employee Salary : " EMPLOYEE-SALARY
+                   END-READ.
+
